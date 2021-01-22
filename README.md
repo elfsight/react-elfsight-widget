@@ -1,6 +1,6 @@
 # react-elfsight-widget
 
-The component that helps you to add [Elfsight](https://elfsight.com/) Widget to your React App.
+The component that adds [Elfsight](https://elfsight.com/) Widget to a React App.
 
 This package _DOES NOT_ contain any Elfsight Widgets itself.
 
