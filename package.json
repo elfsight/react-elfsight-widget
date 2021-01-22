@@ -1,10 +1,10 @@
 {
-  "name": "react-elfsight",
-  "version": "0.1.0",
+  "name": "react-elfsight-widget",
+  "version": "1.0.0",
   "description": "The right way to add Elfsight Widget to your React App",
   "license": "MIT",
   "author": "Vladimir Ivanenko <d521bb85@gmail.com>",
-  "homepage": "https://github.com/d521bb85/react-elfsight",
+  "homepage": "https://github.com/d521bb85/react-elfsight-widget",
   "scripts": {
     "clean": "rimraf ./dist",
     "format": "eslint --fix ./src",
@@ -31,11 +31,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/d521bb85/react-elfsight"
+    "url": "https://github.com/d521bb85/react-elfsight-widget"
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "dist/react-elfsight.esm.js",
+  "module": "dist/react-elfsight-widget.esm.js",
   "files": [
     "dist",
     "src"
