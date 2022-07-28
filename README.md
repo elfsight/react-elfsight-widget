@@ -12,7 +12,7 @@ npm install react-elfsight-widget
 
 ## Usage
 
-```typescript
+```tsx
 import React from 'react';
 import { ElfsightWidget } from 'react-elfsight-widget';
 
