@@ -1,5 +1,7 @@
 # react-elfsight-widget
 
+[![npm](https://img.shields.io/npm/dm/react-elfsight-widget)](https://www.npmjs.com/package/react-elfsight-widget)
+
 The component that adds [Elfsight](https://elfsight.com/) Widget to a React App.
 
 This package _DOES NOT_ contain any Elfsight Widgets itself.
