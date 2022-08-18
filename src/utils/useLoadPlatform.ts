@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const PLATFORM_URI = 'https://apps.elfsight.com/p/platform.js';
+const PLATFORM_URI = 'https://static.elfsight.com/platform/platform.js';
 
 export function useLoadPlatform() {
   useEffect(() => {
