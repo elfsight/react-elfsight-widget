@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const PLATFORM_URI = 'https://apps.elfsight.com/p/platform.js';
+const PLATFORM_URL = 'https://static.elfsight.com/platform/platform.js';
 
 export function useLoadPlatform() {
   useEffect(() => {
@@ -19,12 +19,12 @@ function isPlatformInitialized() {
 }
 
 function hasPlatformScript() {
-  return !!document.querySelector(`script[src="${PLATFORM_URI}"]`);
+  return !!document.querySelector(`script[src="${PLATFORM_URL}"]`);
 }
 
 function loadPlatform() {
   const scriptElement = document.createElement('script');
-  scriptElement.src = PLATFORM_URI;
+  scriptElement.src = PLATFORM_URL;
   scriptElement.defer = true;
   document.head.appendChild(scriptElement);
 }
