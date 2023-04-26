@@ -6,9 +6,9 @@ The package provides a component that helps smoothly integrate an Elfsight widge
 
 Please note that to use it you need an [Elfsight](https://elfsight.com/) account and a widget created and configured.
 
-# Getting Started
+## Getting Started
 
-## Installation
+### Installation
 
 For NPM users:
 
@@ -22,7 +22,7 @@ For Yarn users:
 yarn add react-elfsight-widget
 ```
 
-## Usage
+### Usage
 
 Due to the complications caused by ongoing migration from the legacy to the modern dashboard, we kindly ask you to choose one of the following implementations depending on your account origin.
 
@@ -56,9 +56,9 @@ It's not possible to use two or more widgets originating from different dashboar
 
 In case you need any assistance, please contact [support](https://help.elfsight.com/).
 
-# Props
+## Props
 
-## widgetId
+### widgetId
 
 Widget identifier.
 
@@ -75,20 +75,20 @@ Widget identifier.
   So, in order to obtain a widget identifier you need'll to take it's class name and strip `elfsight-app-` prefix.
 </details>
 
-## lazy
+### lazy
 
 Enables lazy loading. Accepts boolean or string (useful when you want to specify a lazy loading mode). If no mode is specified then a widget will be loaded either once it's in the viewport or after user's first activity.
 
-### Modes
+**Modes**
 
 **first-activity** — in this mode a widget will be loaded once a user commits first activity (moves mouse, scrolls page, etc.); appearing in the viewport is ignored.
 
 **in-viewport** — widget will be loaded once it's in the viewport; users activity is ignored.
 
-## modern
+### modern
 
 Changes widget origin to the modern dashboard. Please consult Usage section for more details.
 
-## className and other props and attributes
+### className and other props and attributes
 
 Also you can pass any prop that standard `div` element accepts such as `className`, `id`, `style` and others. All these props will be forwarded to a widget container `div` element.
