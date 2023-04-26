@@ -2,26 +2,93 @@
 
 [![npm](https://img.shields.io/npm/dm/react-elfsight-widget)](https://www.npmjs.com/package/react-elfsight-widget)
 
-The component that adds [Elfsight](https://elfsight.com/) Widget to a React App.
+The package provides a component that helps smoothly integrate an Elfsight widget into a React app.
 
-This package _DOES NOT_ contain any Elfsight Widgets itself.
+Please note that to use it you need an [Elfsight](https://elfsight.com/) account and a widget created and configured.
+
+# Getting Started
 
 ## Installation
 
+For NPM users:
+
+```sh
+npm i react-elfsight-widget
 ```
-npm install react-elfsight-widget
+
+For Yarn users:
+
+```sh
+yarn add react-elfsight-widget
 ```
 
 ## Usage
+
+Due to the complications caused by ongoing migration from the legacy to the modern dashboard, we kindly ask you to choose one of the following implementations depending on your account origin.
+
+If you manage your account and widgets at **apps.elfsight.com** (legacy):
 
 ```tsx
 import React from 'react';
 import { ElfsightWidget } from 'react-elfsight-widget';
 
-function Component() {
-  return <ElfsightWidget widgetID="6f4fc62b-74c9-45da-87fa-b71eda360cc0" />;
+function MyConponent() {
+  <ElfsightWidget widgetId={/* replace with a widget id */} lazy />;
 }
 ```
 
-_NOTE: There is no need to manually add Elfsight's `platform.js` script to a page, the component will do it for you.
-But if you already have it on the page, it's okay, the script won't be added twice._
+If you manage your account and widgets at **dash.elfsight.com** (modern):
+
+> If you're new customer who registered after 03 of April, or you've received a migration notice, this option is probably for you.
+
+```tsx
+import React from 'react';
+import { ElfsightWidget } from 'react-elfsight-widget';
+
+function MyConponent() {
+  <ElfsightWidget widgetId={/* replace with a widget id */} lazy modern />;
+}
+```
+
+Once your account is migrated to the modern dashboard it won't require any changes to the code.
+
+It's not possible to use two or more widgets originating from different dashboards on the same page.
+
+In case you need any assistance, please contact [support](https://help.elfsight.com/).
+
+# Props
+
+## widgetId
+
+Widget identifier.
+
+<details>
+  <summary>How to get a widget identifier from an installation code?</summary>
+  
+  Let's take a look at an arbitrary installation code.
+  ```html
+  <script src="https://static.elfsight.com/platform/platform.js" defer></script>
+  <div class="elfsight-app-85d18ddb-c202-421e-9a88-6c099d7a7833"></div>
+  ```
+  At the second line we can see a `div` element with a long class name: `elfsight-app-85d18ddb-c202-421e-9a88-6c099d7a7833`, where `85d18ddb-c202-421e-9a88-6c099d7a7833` is the widget identifier.
+  
+  So, in order to obtain a widget identifier you need'll to take it's class name and strip `elfsight-app-` prefix.
+</details>
+
+## lazy
+
+Enables lazy loading. Accepts boolean or string (useful when you want to specify a lazy loading mode). If no mode is specified then a widget will be loaded either once it's in the viewport or after user's first activity.
+
+### Modes
+
+**first-activity** — in this mode a widget will be loaded once a user commits first activity (moves mouse, scrolls page, etc.); appearing in the viewport is ignored.
+
+**in-viewport** — widget will be loaded once it's in the viewport; users activity is ignored.
+
+## modern
+
+Changes widget origin to the modern dashboard. Please consult Usage section for more details.
+
+## className and other props and attributes
+
+Also you can pass any prop that standard `div` element accepts such as `className`, `id`, `style` and others. All these props will be forwarded to a widget container `div` element.

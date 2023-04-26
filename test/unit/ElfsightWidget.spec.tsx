@@ -1,59 +1,130 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ElfsightWidget } from '../../src/ElfsightWidget';
 
 describe('ElfsightWidget', () => {
-  it('should add Platform script', async () => {
-    function Page() {
-      return <ElfsightWidget widgetID="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
+  afterEach(() => {
+    const platformScript = document.querySelector(
+      '[data-testid="platform-script"]'
+    );
+    if (platformScript) {
+      platformScript.remove();
     }
-
-    render(<Page />);
-
-    await waitFor(() => {
-      const platformScriptElement = document.querySelector(
-        'script[src="https://apps.elfsight.com/p/platform.js"]'
-      );
-
-      expect(platformScriptElement).toBeTruthy();
-    });
   });
 
-  it('should render a widget container', async () => {
-    function Page() {
-      return <ElfsightWidget widgetID="116b31fb-93e6-4830-b089-0ec49171f6ff" />;
-    }
-
-    render(<Page />);
-
-    await waitFor(() => {
-      const widgetContainerElement = document.querySelector(
-        '.elfsight-app-116b31fb-93e6-4830-b089-0ec49171f6ff'
-      );
-
-      expect(widgetContainerElement).toBeTruthy();
-    });
-  });
-
-  it('should not add Platform script multiple times', async () => {
+  it('adds platform.js script once', () => {
     function Page() {
       return (
         <>
-          <ElfsightWidget widgetID="21a3c57c-c113-4846-be89-b51f8ae2fe1e" />
-          <ElfsightWidget widgetID="70709362-c732-42b9-814a-2c007b083d6b" />
-          <ElfsightWidget widgetID="36923c89-b48d-4475-adaa-427e17382cea" />
+          <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />
+          <ElfsightWidget widgetId="116b31fb-93e6-4830-b089-0ec49171f6ff" />
         </>
       );
     }
-
     render(<Page />);
+    const platformScripts = document.querySelectorAll(
+      '[data-testid="platform-script"]'
+    );
+    expect(platformScripts).toHaveLength(1);
+  });
 
-    await waitFor(() => {
-      const platformScriptElements = document.querySelectorAll(
-        'script[src="https://apps.elfsight.com/p/platform.js"]'
+  it('adds platform.js in legacy dashboard mode', () => {
+    function Page() {
+      return <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
+    }
+    render(<Page />);
+    const platformScript = document.querySelector(
+      '[data-testid="platform-script"]'
+    )!;
+    expect(platformScript.hasAttribute('data-use-service-core')).toBeFalsy();
+  });
+
+  it('adds platform.js in modern dashboard mode', () => {
+    function Page() {
+      return (
+        <ElfsightWidget
+          widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79"
+          modern
+        />
       );
+    }
+    render(<Page />);
+    const platformScript = document.querySelector(
+      '[data-testid="platform-script"]'
+    )!;
+    expect(platformScript.getAttribute('data-use-service-core')).toBe('');
+  });
 
-      expect(platformScriptElements).toHaveLength(1);
-    });
+  it('renders a widget container', () => {
+    function Page() {
+      return <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
+    }
+    render(<Page />);
+    const widgetContainer = document.querySelector(
+      '.elfsight-app-06c7c0f6-d7f0-4e4a-8076-91d34b914d79'
+    );
+    expect(widgetContainer).toBeInstanceOf(Element);
+  });
+
+  it('renders a widget container in standard mode', () => {
+    function Page() {
+      return <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
+    }
+    render(<Page />);
+    const widgetContainer = document.querySelector(
+      '.elfsight-app-06c7c0f6-d7f0-4e4a-8076-91d34b914d79'
+    )!;
+    expect(widgetContainer.hasAttribute('data-elfsight-app-lazy')).toBeFalsy();
+  });
+
+  it('renders a widget container in default lazy mode', () => {
+    function Page() {
+      return (
+        <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" lazy />
+      );
+    }
+    render(<Page />);
+    const widgetContainer = document.querySelector(
+      '.elfsight-app-06c7c0f6-d7f0-4e4a-8076-91d34b914d79'
+    )!;
+    expect(widgetContainer.getAttribute('data-elfsight-app-lazy')).toBe(
+      'default'
+    );
+  });
+
+  it('renders a widget container in specified lazy mode', () => {
+    function Page() {
+      return (
+        <ElfsightWidget
+          widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79"
+          lazy="first-activity"
+        />
+      );
+    }
+    render(<Page />);
+    const widgetContainer = document.querySelector(
+      '.elfsight-app-06c7c0f6-d7f0-4e4a-8076-91d34b914d79'
+    )!;
+    expect(widgetContainer.getAttribute('data-elfsight-app-lazy')).toBe(
+      'first-activity'
+    );
+  });
+
+  it('passes other props to a widget container', () => {
+    function Page() {
+      return (
+        <ElfsightWidget
+          widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79"
+          className="my-custom-widget"
+          style={{ fontFamily: 'Arial' }}
+        />
+      );
+    }
+    render(<Page />);
+    const widgetContainer = document.querySelector(
+      '.elfsight-app-06c7c0f6-d7f0-4e4a-8076-91d34b914d79'
+    )!;
+    expect(widgetContainer.classList.contains('my-custom-widget')).toBeTruthy();
+    expect(widgetContainer.getAttribute('style')).toBe('font-family: Arial;');
   });
 });
