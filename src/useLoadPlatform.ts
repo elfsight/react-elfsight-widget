@@ -18,7 +18,7 @@ export function useLoadPlatform() {
 
     document.body.appendChild(platformScript);
 
-    // platform cannot be loaded twice on the sample page
+    // platform cannot be loaded twice on the same page
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 }
