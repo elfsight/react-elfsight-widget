@@ -1,6 +1,6 @@
 {
   "name": "react-elfsight-widget",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "The right way to add Elfsight Widget to your React App",
   "license": "MIT",
   "author": "Vladimir Ivanenko <d521bb85@gmail.com>",
@@ -28,7 +28,7 @@
     "src"
   ],
   "peerDependencies": {
-    "react": "^17.0.2 || ^18.0.0"
+    "react": "^17.0.2 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",

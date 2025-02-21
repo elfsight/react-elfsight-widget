@@ -2,30 +2,27 @@ import type { HTMLAttributes } from 'react';
 import React, { memo, useEffect } from 'react';
 import { useLoadPlatform } from './useLoadPlatform';
 
-export type ElfsightWidgetProps =
-  | ModernElfsightWidgetProps
-  | LegacyElfsightWidgetProps;
-
-export interface ModernElfsightWidgetProps extends BaseElfsightWidgetProps {
+export interface ElfsightWidgetProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * @deprecated since 1.1.0, please use widgetId instead
-   * */
+   *
+   * Widget identifier (deprecated).
+   * Use `widgetId` instead.
+   */
   widgetID?: never;
-  widgetId: string;
-}
 
-export interface LegacyElfsightWidgetProps extends BaseElfsightWidgetProps {
   /**
-   * @deprecated since 1.1.0, please use widgetId instead
-   * */
-  widgetID: string;
-  widgetId?: never;
-}
+   * Widget identifier.
+   * The unique identifier for the widget, obtained from the installation code.
+   * Example: `elfsight-app-85d18ddb-c202-421e-9a88-6c099d7a7833` → `85d18ddb-c202-421e-9a88-6c099d7a7833`.
+   */
+  widgetId: string;
 
-export interface BaseElfsightWidgetProps
-  extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Enables lazy loading.
+   * Accepts a boolean or a mode.
+   */
   lazy?: boolean | NamedLazyMode;
-  modern?: boolean;
 }
 
 export type NamedLazyMode =
@@ -38,7 +35,6 @@ export const ElfsightWidget = memo(function ElfsightWidget({
   widgetId,
   widgetID,
   lazy,
-  modern = false,
   className,
   ...forwardedProps
 }: ElfsightWidgetProps) {
@@ -50,13 +46,10 @@ export const ElfsightWidget = memo(function ElfsightWidget({
     }
   }, [widgetID]);
 
-  useLoadPlatform(modern);
+  useLoadPlatform();
 
   const finalWidgetId = widgetId ?? widgetID;
-  let effectiveClassName = `elfsight-app-${finalWidgetId}`;
-  if (className) {
-    effectiveClassName += ` ${className}`;
-  }
+  const widgetClassName = `elfsight-app-${finalWidgetId}`;
 
   let effectiveLazy: string | undefined;
   if (typeof lazy === 'boolean') {
@@ -67,7 +60,7 @@ export const ElfsightWidget = memo(function ElfsightWidget({
 
   return (
     <div
-      className={effectiveClassName}
+      className={[widgetClassName, className].filter(Boolean).join(' ')}
       data-elfsight-app-lazy={effectiveLazy}
       {...forwardedProps}
     />
