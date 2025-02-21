@@ -10,49 +10,19 @@ Please note that to use it you need an [Elfsight](https://elfsight.com/) account
 
 ### Installation
 
-For NPM users:
-
 ```sh
 npm i react-elfsight-widget
 ```
 
-For Yarn users:
-
-```sh
-yarn add react-elfsight-widget
-```
-
 ### Usage
 
-Due to the complications caused by ongoing migration from the legacy to the modern dashboard, we kindly ask you to choose one of the following implementations depending on your account origin.
-
-If you manage your account and widgets at **apps.elfsight.com** (legacy):
-
 ```tsx
-import React from 'react';
 import { ElfsightWidget } from 'react-elfsight-widget';
 
-function MyConponent() {
+function MyComponent() {
   <ElfsightWidget widgetId={/* replace with a widget id */} lazy />;
 }
 ```
-
-If you manage your account and widgets at **dash.elfsight.com** (modern):
-
-> If you're new customer who registered after 03 of April, or you've received a migration notice, this option is probably for you.
-
-```tsx
-import React from 'react';
-import { ElfsightWidget } from 'react-elfsight-widget';
-
-function MyConponent() {
-  <ElfsightWidget widgetId={/* replace with a widget id */} lazy modern />;
-}
-```
-
-Once your account is migrated to the modern dashboard it won't require any changes to the code.
-
-It's not possible to use two or more widgets originating from different dashboards on the same page.
 
 In case you need any assistance, please contact [support](https://help.elfsight.com/).
 
@@ -79,15 +49,9 @@ Widget identifier.
 
 Enables lazy loading. Accepts boolean or string (useful when you want to specify a lazy loading mode). If no mode is specified then a widget will be loaded either once it's in the viewport or after user's first activity.
 
-**Modes**
-
-**first-activity** — in this mode a widget will be loaded once a user commits first activity (moves mouse, scrolls page, etc.); appearing in the viewport is ignored.
-
-**in-viewport** — widget will be loaded once it's in the viewport; users activity is ignored.
-
-### modern
-
-Changes widget origin to the modern dashboard. Please consult Usage section for more details.
+**Modes**:
+* **first-activity** — in this mode a widget will be loaded once a user commits first activity (moves mouse, scrolls page, etc.); appearing in the viewport is ignored.
+* **in-viewport** — widget will be loaded once it's in the viewport; users activity is ignored.
 
 ### className and other props and attributes
 

@@ -28,33 +28,6 @@ describe('ElfsightWidget', () => {
     expect(platformScripts).toHaveLength(1);
   });
 
-  it('adds platform.js in legacy dashboard mode', () => {
-    function Page() {
-      return <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
-    }
-    render(<Page />);
-    const platformScript = document.querySelector(
-      '[data-testid="platform-script"]'
-    )!;
-    expect(platformScript.hasAttribute('data-use-service-core')).toBeFalsy();
-  });
-
-  it('adds platform.js in modern dashboard mode', () => {
-    function Page() {
-      return (
-        <ElfsightWidget
-          widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79"
-          modern
-        />
-      );
-    }
-    render(<Page />);
-    const platformScript = document.querySelector(
-      '[data-testid="platform-script"]'
-    )!;
-    expect(platformScript.getAttribute('data-use-service-core')).toBe('');
-  });
-
   it('renders a widget container', () => {
     function Page() {
       return <ElfsightWidget widgetId="06c7c0f6-d7f0-4e4a-8076-91d34b914d79" />;
